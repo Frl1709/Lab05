@@ -10,6 +10,8 @@ class Model:
         self.nomeStudenteMatricola = None
         self.cognomeStudenteMatricola = None
         self.corsiIscrizione = []
+        self.studenteIscritto = None
+        self.corsoDiIscrizione = None
 
     def get_corsiM(self):
         self.corsi = c.get_corsi()
@@ -30,3 +32,6 @@ class Model:
     def get_corsi_studente(self, matricola):
         self.corsi = s.get_corsi_iscritti(matricola)
         return self.corsi
+
+    def iscrizione_corsi(self, matricola, codins):
+        self.studenteIscritto, self.corsoDiIscrizione = c.create_iscrizione(matricola, codins)

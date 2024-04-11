@@ -5,7 +5,6 @@ from model.corso import Corso as c
 from model.studente import Studente as s
 
 
-
 def get_corsi():
     cnx = get_connection()
     cursor = cnx.cursor(dictionary=True)
@@ -49,3 +48,14 @@ def get_studenti_corso(cod):
         print("Nessuna matricola trovata")
     cursor.close()
     return studenti
+
+
+def create_iscrizione(matricola, codins):
+    cnx = get_connection()
+    cursor = cnx.cursor(dictionary=True)
+    query = """INSERT INTO iscrizione (matricola, codins)
+        VALUES (%s, %s)"""
+    cursor.execute(query, (matricola, codins))
+    cnx.commit()
+    cursor.close()
+    return matricola, codins

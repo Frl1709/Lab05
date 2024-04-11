@@ -67,7 +67,7 @@ class View(ft.UserControl):
         # ROW 3
         self.btn_students = ft.ElevatedButton(text="Cerca studente", on_click=self.btn_matr)
         self.btn_corsi = ft.ElevatedButton(text="Cerca corso", on_click=self.btn_corsi_iscritto)
-        self.btn_iscrivi = ft.ElevatedButton(text="Iscrivi")
+        self.btn_iscrivi = ft.ElevatedButton(text="Iscrivi", on_click=self.btn_iscrizione)
         row3 = ft.Row([self.btn_students, self.btn_corsi, self.btn_iscrivi], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.add(row1, row2, row3, self.txt_result)
@@ -83,6 +83,9 @@ class View(ft.UserControl):
 
     def btn_corsi_iscritto(self, e):
         self._controller.search_corsi_iscrizione()
+
+    def btn_iscrizione(self, e):
+        self._controller.iscrivere_studente()
 
 
     @property

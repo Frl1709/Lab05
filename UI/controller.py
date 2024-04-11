@@ -59,3 +59,11 @@ class Controller:
             for c in corsi:
                 self._view.txt_result.controls.append(ft.Text(f"{c.__str__()}"))
                 self._view.update_page()
+
+    def iscrivere_studente(self):
+        corso = self._view.scelta
+        matricola = self._view.txt_matricola.value
+        if (matricola is None or matricola == "") and (corso is None or corso == ""):
+            self._view.create_alert("Inserire una matricola e un corso")
+        else:
+            self._model.iscrizione_corsi(matricola, corso)
