@@ -28,8 +28,31 @@ class Controller:
         return self.options
 
     def search_students(self):
-        student = self._model.get_studenti_iscritti(self._view.txt_corso.value)
-        self._view.txt_result.controls.append(ft.Text(f"Ci sono {len(student)} iscritti"))
-        for s in student:
-            self._view.txt_result.controls.append(ft.Text(f"{s.__str__()}"))
+        if self._view.scelta is not None:
+            self._view.txt_result.clean()
+            students = self._model.get_studenti_iscritti(self._view.scelta)
+            self._view.txt_result.controls.append(ft.Text(f"Ci sono {len(students)} iscritti"))
+            for s in students:
+                self._view.txt_result.controls.append(ft.Text(f"{s.__str__()}"))
+                self._view.update_page()
+        else:
+            self._view.create_alert("Selezionare un corso")
+
+    def search_matricola(self):
+        if self._view.txt_matricola.value is not None:
+            (nome, cognome) = self._model.get_studenti_matricola(self._view.txt_matricola.value)
+            self._view.txt_nome.value = nome
+            self._view.txt_cognome.value = cognome
             self._view.update_page()
+        else:
+            self._view.create_alert("Inserire una matricola")
+
+    def search_corsi_iscrizione(self):
+        self._view.txt_result.clean()
+        corsi = self._model.get_corsi_studente(self._view.txt_matricola.value)
+        self._view.txt_result.controls.append(ft.Text(f"Lo studente è iscritto a {len(corsi)} corsi"))
+        for c in corsi:
+            self._view.txt_result.controls.append(ft.Text(f"{c.__str__()}"))
+            self._view.update_page()
+
+

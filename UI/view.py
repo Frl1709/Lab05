@@ -1,13 +1,12 @@
 import flet as ft
-from model.model import Model as m
-
 
 
 class View(ft.UserControl):
+
     def __init__(self, page: ft.Page):
         super().__init__()
         # page stuff
-        self.btn_search = None
+
         self._page = page
         self._page.title = "Lab O5 - segreteria studenti"
         self._page.horizontal_alignment = 'CENTER'
@@ -21,13 +20,21 @@ class View(ft.UserControl):
         self.txt_result = None
         self.txt_container = None
         self.txt_corso = None
+        self.txt_cognome = None
+        self.txt_nome = None
+        self.txt_matricola = None
+        self.btn_search = None
+        self.btn_iscrivi = None
+        self.btn_corsi = None
+        self.btn_students = None
+        self.scelta = None
 
     def load_interface(self):
         """Function that loads the graphical elements of the view"""
         # title
         self._title = ft.Text("App gestione studenti", color="blue", size=24)
-        self._page.controls.append(self._title)
 
+        self._page.controls.append(self._title)
         """#ROW with some controls
         # text field for the name
         self.txt_name = ft.TextField(
@@ -43,10 +50,12 @@ class View(ft.UserControl):
         self._page.controls.append(row1)
 """
         # ROW 1
-        self.txt_corso = ft.Dropdown(label="Corso", hint_text="Seleziona un corso", options=self._controller.popolateDD(), width=750)
+
+        self.txt_corso = ft.Dropdown(label="Corso", hint_text="Seleziona un corso",
+                                     options=self._controller.popolateDD(), on_change=self.changeDD, width=750)
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
-        self.btn_search = ft.ElevatedButton(text="Cerca Iscritti", on_click=self._controller.search_students())
+        self.btn_search = ft.ElevatedButton(text="Cerca Iscritti", on_click=self.btn_stud)
         row1 = ft.Row([self.txt_corso, self.btn_search], alignment=ft.MainAxisAlignment.CENTER)
 
         # ROW 2
@@ -56,12 +65,25 @@ class View(ft.UserControl):
         row2 = ft.Row([self.txt_matricola, self.txt_nome, self.txt_cognome], alignment=ft.MainAxisAlignment.CENTER)
 
         # ROW 3
-        self.btn_students = ft.ElevatedButton(text="Cerca studente")
-        self.btn_corsi = ft.ElevatedButton(text="Cerca corso")
+        self.btn_students = ft.ElevatedButton(text="Cerca studente", on_click=self.btn_matr)
+        self.btn_corsi = ft.ElevatedButton(text="Cerca corso", on_click=self.btn_corsi_iscritto)
         self.btn_iscrivi = ft.ElevatedButton(text="Iscrivi")
         row3 = ft.Row([self.btn_students, self.btn_corsi, self.btn_iscrivi], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.add(row1, row2, row3, self.txt_result)
+
+    def changeDD(self, e):
+        self.scelta = self.txt_corso.value
+
+    def btn_stud(self, e):
+        self._controller.search_students()
+
+    def btn_matr(self, e):
+        self._controller.search_matricola()
+
+    def btn_corsi_iscritto(self, e):
+        self._controller.search_corsi_iscrizione()
+
 
     @property
     def controller(self):

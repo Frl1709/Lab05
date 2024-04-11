@@ -5,6 +5,7 @@ from model.corso import Corso as c
 from model.studente import Studente as s
 
 
+
 def get_corsi():
     cnx = get_connection()
     cursor = cnx.cursor(dictionary=True)
@@ -27,18 +28,15 @@ def get_studenti_corso(cod):
     cursor = cnx.cursor(dictionary=True)
     query = """SELECT matricola
         FROM iscrizione
-        WHERE codins = %s  """
+        WHERE codins = %s """
 
     cursor.execute(query, (cod,))
-    result = []
-    for row in cursor:
-        result.append(row)
-    print(result)
+    result = cursor.fetchall()
     studenti = []
     if result:
         matricole = ', '.join(str(row['matricola']) for row in result)
         query = f"""SELECT *
-            FROM studenti
+            FROM studente
             WHERE matricola IN ({matricole})"""
 
         cursor.execute(query)
