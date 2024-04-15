@@ -27,7 +27,7 @@ class Controller:
         self.options = [ft.dropdown.Option(key=option.codCorso, text=option.__str__()) for option in corsi]
         return self.options
 
-    def search_students(self):
+    def search_students(self, e):
         if self._view.scelta is not None:
             self._view.txt_result.clean()
             students = self._model.get_studenti_iscritti(self._view.scelta)
@@ -38,7 +38,7 @@ class Controller:
         else:
             self._view.create_alert("Selezionare un corso")
 
-    def search_matricola(self):
+    def search_matricola(self, e):
         matricola = self._view.txt_matricola.value
         if matricola is None or matricola == "":
             self._view.create_alert("Inserire una matricola")
@@ -48,7 +48,7 @@ class Controller:
             self._view.txt_cognome.value = cognome
             self._view.update_page()
 
-    def search_corsi_iscrizione(self):
+    def search_corsi_iscrizione(self, e):
         matricola = self._view.txt_matricola.value
         if matricola is None or matricola == "":
             self._view.create_alert("Inserire una matricola")
@@ -60,7 +60,7 @@ class Controller:
                 self._view.txt_result.controls.append(ft.Text(f"{c.__str__()}"))
                 self._view.update_page()
 
-    def iscrivere_studente(self):
+    def iscrivere_studente(self, e):
         corso = self._view.scelta
         matricola = self._view.txt_matricola.value
         if (matricola is None or matricola == "") and (corso is None or corso == ""):

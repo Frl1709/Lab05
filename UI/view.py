@@ -55,7 +55,7 @@ class View(ft.UserControl):
                                      options=self._controller.popolateDD(), on_change=self.changeDD, width=750)
         # List View where the reply is printed
         self.txt_result = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
-        self.btn_search = ft.ElevatedButton(text="Cerca Iscritti", on_click=self.btn_stud)
+        self.btn_search = ft.ElevatedButton(text="Cerca Iscritti", on_click=self._controller.search_students)
         row1 = ft.Row([self.txt_corso, self.btn_search], alignment=ft.MainAxisAlignment.CENTER)
 
         # ROW 2
@@ -65,9 +65,9 @@ class View(ft.UserControl):
         row2 = ft.Row([self.txt_matricola, self.txt_nome, self.txt_cognome], alignment=ft.MainAxisAlignment.CENTER)
 
         # ROW 3
-        self.btn_students = ft.ElevatedButton(text="Cerca studente", on_click=self.btn_matr)
-        self.btn_corsi = ft.ElevatedButton(text="Cerca corso", on_click=self.btn_corsi_iscritto)
-        self.btn_iscrivi = ft.ElevatedButton(text="Iscrivi", on_click=self.btn_iscrizione)
+        self.btn_students = ft.ElevatedButton(text="Cerca studente", on_click=self._controller.search_matricola)
+        self.btn_corsi = ft.ElevatedButton(text="Cerca corso", on_click=self._controller.search_corsi_iscrizione)
+        self.btn_iscrivi = ft.ElevatedButton(text="Iscrivi", on_click=self._controller.iscrivere_studente)
         row3 = ft.Row([self.btn_students, self.btn_corsi, self.btn_iscrivi], alignment=ft.MainAxisAlignment.CENTER)
 
         self._page.add(row1, row2, row3, self.txt_result)
@@ -75,7 +75,7 @@ class View(ft.UserControl):
     def changeDD(self, e):
         self.scelta = self.txt_corso.value
 
-    def btn_stud(self, e):
+    """def btn_stud(self, e):
         self._controller.search_students()
 
     def btn_matr(self, e):
@@ -85,7 +85,7 @@ class View(ft.UserControl):
         self._controller.search_corsi_iscrizione()
 
     def btn_iscrizione(self, e):
-        self._controller.iscrivere_studente()
+        self._controller.iscrivere_studente()"""
 
 
     @property
