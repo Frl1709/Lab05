@@ -19,6 +19,7 @@ def get_studente():
                         row["nome"],
                         row["CDS"]))
     cursor.close()
+    cnx.close()
     return result
 
 
@@ -31,6 +32,7 @@ def get_studente_matricola(matricola):
     cursor.execute(query, (matricola,))
     studente = cursor.fetchone()
     cursor.close()
+    cnx.close()
     return studente['nome'], studente['cognome']
 
 
@@ -57,4 +59,6 @@ def get_corsi_iscritti(matricola):
                                 row["crediti"],
                                 row["nome"],
                                 row["pd"]))
+    cursor.close()
+    cnx.close()
     return result

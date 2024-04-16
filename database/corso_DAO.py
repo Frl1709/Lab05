@@ -19,6 +19,7 @@ def get_corsi():
                         row["nome"],
                         row["pd"]))
     cursor.close()
+    cnx.close()
     return result
 
 
@@ -47,6 +48,7 @@ def get_studenti_corso(cod):
     else:
         print("Nessuna matricola trovata")
     cursor.close()
+    cnx.close()
     return studenti
 
 
@@ -58,4 +60,5 @@ def create_iscrizione(matricola, codins):
     cursor.execute(query, (matricola, codins))
     cnx.commit()
     cursor.close()
+    cnx.close()
     return matricola, codins
